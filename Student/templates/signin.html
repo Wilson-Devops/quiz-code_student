@@ -1,0 +1,321 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <title>Cloud Binary_SignIn</title>
+    <meta charset="utf-8">
+    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+    <!-- <title>Login Form Design | CodeLab</title> -->
+    <style>
+
+      @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: #111313;
+}
+
+nav{
+  background: #0082e6;
+  height: 80px;
+  width: 100%;
+}
+welcome.h1{
+	font-family:fantasy
+	
+}
+label.logo{
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+}
+nav ul{
+  float: right;
+  margin-right: 20px;
+}
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+nav ul li a{
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+a.active,a:hover{
+  background: #1b9bff;
+  transition: .5s;
+}
+.checkbtn{
+  font-size: 30px;
+  color: white;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+#check{
+  display: none;
+}
+@media (max-width: 952px){
+  label.logo{
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a{
+    font-size: 16px;
+  }
+}
+@media (max-width: 858px){
+  .checkbtn{
+    display: block;
+  }
+  ul{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #2c3e50;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+  }
+  nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a{
+    font-size: 20px;
+  }
+  a:hover,a.active{
+    background: none;
+    color: #0082e6;
+  }
+  #check:checked ~ ul{
+    left: 0;
+  }
+}
+section{
+  background: url(picbg.jpeg) no-repeat;
+  background-size: cover;
+  height: calc(100vh - 80px);
+}
+
+html,body{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  color: #1c1d1d;
+  
+  
+  background: #f2f2f2;
+  /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
+}
+::selection{
+  background: #4158d0;
+  color: #fff;
+}
+.wrapper{
+  width: 340px;
+  background: #fff;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 35%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  box-shadow: 0px 15px 20px rgba(0,0,0,1);
+}
+.wrapper .title{
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 65px;
+  color: #fff;
+  user-select: none;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(-135deg, #1b9bff, #111313);
+}
+.wrapper form{
+  padding: 5px 20px 50px 25px;
+}
+.wrapper form .field{
+  height: 45px;
+  width: 100%;
+  margin-top: 40px;
+  
+  position: relative;
+  
+}
+.wrapper form .field input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding-left: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+.wrapper form .field input:focus,
+form .field input:valid{
+  border-color: #4158d0;
+}
+.wrapper form .field label{
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  color: #999999;
+  font-weight: 400;
+  font-size: 17px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+form .field input:focus ~ label,
+form .field input:valid ~ label{
+  top: 0%;
+  font-size: 16px;
+  color: #4158d0;
+  background: #fff;
+  transform: translateY(-50%);
+}
+form .content{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: space-around;
+}
+form .content .checkbox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form .content input{
+  width: 15px;
+  height: 15px;
+  background: red;
+}
+form .content label{
+  color: #262626;
+  user-select: none;
+  padding-left: 5px;
+}
+form .content .pass-link{
+  color: "";
+}
+form .field input[type="submit"]{
+  color: #fff;
+  border: none;
+  padding-left: 0;
+  margin-top: -10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(-135deg,#111313,#1b9bff );
+  transition: all 0.3s ease;
+}
+form .field input[type="submit"]:active{
+  transform: scale(0.95);
+}
+form .signup-link{
+  color: #262626;
+  margin-top: 20px;
+  text-align: center;
+}
+form .pass-link a,
+form .signup-link a{
+  color: #4158d0;
+  text-decoration: none;
+}
+form .pass-link a:hover,
+form .signup-link a:hover{
+  text-decoration: underline;
+}
+strong{
+
+  color: rgb(230, 74, 26);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+
+div .alert-alert-message.tags alert-diminisible fade show{
+  background-color: sandybrown;
+}
+
+button .button{
+  width: auto;
+
+}
+
+    </style>
+
+
+  </head>
+  <body>
+
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <label class="logo">Cloud Binary</label>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/signup/">SignUp</a></li>
+        <li><a class="active"  href="#">SignIn</a></li>
+        <li><a href="{{link}}">About</a></li>
+        
+      </ul>
+    </nav>
+
+    {% for message in messages %}
+  <div class="alert-alert-{{message.tags}} alert-diminisible fade show" role="alert">
+    <strong>Message</strong>{{message}}
+    
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+
+    <div class="wrapper">
+      <div class="title">
+Login Form</div>
+<form action="" method="POST">
+  {% csrf_token %}
+        <div class="field">
+          <input type="text" required>
+          <label>Email Address</label>
+        </div>
+<div class="field">
+          <input type="password" required >
+          <label>Password</label>
+        </div>
+<div class="content">
+          <div class="checkbox">
+            <label for="remember-me"></label>
+          </div>
+
+<div class="field">
+          <input type="submit" value="Login">
+        </div>
+<div class="signup-link">
+Not a member? <a href="/signup/">Signup now</a></div>
+</form>
+</div>
+</body>
+</html>

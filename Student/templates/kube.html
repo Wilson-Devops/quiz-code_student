@@ -1,0 +1,450 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
+    <title>Azure Quiz</title>
+    <style>
+
+      
+
+
+      body{
+        margin:0px;
+        padding:0px;
+       background: linear-gradient(90deg, rgb(33, 34, 33) 43%, rgb(47, 48, 47) 100%);
+        height: 100%;
+        width: 100%;
+      }
+      .quiz-app{
+        margin: 8px auto;
+        height: 600px;
+        width:660px;
+        border-radius: 0px;
+      }
+      #code{
+        margin-left: 250px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        color:#BFBFBF;
+        
+      }
+      .time-bar{
+        margin:30px auto;
+        width: 300px;
+        height:30px;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 30px;
+        border-color: rgb(24, 71, 214);
+        background-color:rgb(1, 1, 3);;
+      }
+      .time-left{
+        width: 300px;
+        height:30px;
+        border-style: none;
+        border-radius: 30px;
+        border-color: rgb(216, 42, 42);
+        background-color: rgb(53, 180, 81);
+
+        
+      }
+      .time{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        color:white;
+        text-align: center;
+      }
+      .q-text{
+        color:#8E97BD;
+        text-align: left;
+        margin-left:20px;
+        margin-top: 30px;
+         font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+      }
+      #question{
+         font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 25px;
+        color:white;
+        padding:10px 5px 10px 5px;
+
+      }
+      .btn{
+        width: 250px;
+        height: 50px;
+        margin-bottom: 10px;
+        margin-left: 40px;
+         font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 20px;
+        background-color:transparent;
+        color:white;
+        border-color: #254567;
+        outline:none;
+        
+        
+      }
+      .btn:hover{
+        background: linear-gradient(90deg, rgba(250,81,113,1) 46%, rgba(250,81,113,1) 50%, rgba(37,44,74,1) 100%);
+        
+      }
+      #next{
+        padding: 15px 40px 15px 40px;
+          font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 15px;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 30px;
+        background-color:#117EEB;
+        color:white;
+        border-color: #117EEB;
+        margin-left: 100px;
+        margin-top: 10px;
+        outline:none;
+
+
+      }
+      #next:hover{
+        background-color: white;
+        color:#117EEB;
+        border-color:white;
+      }
+      #dots{
+        color:#8E97BD;
+        margin-left: 20px;
+        margin-top: -20px;
+      }
+      .il{
+        color:white;
+        font-size: 100px;
+        margin-top:130px;
+        margin-left: 250px;
+        
+      }
+      .app{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 35px;
+        color:white;
+        text-align: center;
+
+      }
+      
+      
+    </style>
+  </head>
+  <body>
+    <div class="main-div">
+        <div class="quiz-app">
+        <div class="start" id="start" style="display: block;">
+        <img src="{% static '/images/ck_logo.jpeg' %}" height="120px" width="120px" class="il"/>
+        <h1 class="app">Kubernetes Quiz</h1>
+        <p id="code">&copy; Cloud Binary</p>
+        </div>
+          <div class="quiz" id="quiz-secreen" style="display:none;">          
+            <div class="time-bar">
+            <div class="time-left" id="timeLeft">
+            
+            </div>
+          </div>
+          <div class="question-no">
+            <h3 class="q-text">Questions<span id="currentQuestion"> 1</span> / <span id="totalQuestions"> 10</span></h3>
+            <h3 id="dots">.............................................................</h3>
+       </div>
+          <div class="qus">
+            <h1 id="question">Who is the first child of the john doe?</h1>
+
+          </div>
+          <div class="choices">
+            <button class="btn" id="opt1">Mark Angel</button>
+            <button class="btn" id="opt2">Mark Angel</button>
+            <button class="btn" id="opt3">Mark Angel</button>
+            <button class="btn" id="opt4">Mark Angel</button>
+          </div>
+          <div class="next-btn">
+            <button id="next">Next</button>
+          </div>
+        </div>
+        <div class="result" id="resultSecreen" style="display: none;">
+           <img src="{% static '/images/ck_logo.jpeg' %}" height="120px" width="120px" class="il"/>
+        <h1 class="app"> Score : <span id="score">6</span></h1>
+        <p id="code">&copy; Cloud Binary</p>
+
+
+        </div>
+        </div>
+    </div>
+    <script> 
+    
+    var currentQuestion=0;
+    var totalScore=0;
+    var cQuestion=document.getElementById('currentQuestion');
+    var totalQuestions=document.getElementById('totalQuestions');
+    var splashSecreen=document.getElementById('start');
+    var quizScreen=document.getElementById('quiz-secreen');
+    var x=0;
+    var resultSecreen=document.getElementById('resultSecreen');
+    var timeLeft=document.getElementById('timeLeft');
+    var score=document.getElementById('score');
+    var question=document.getElementById('question');
+    var opt1=document.getElementById('opt1');
+    var opt2=document.getElementById('opt2');
+    var opt3=document.getElementById('opt3');
+    var opt4=document.getElementById('opt4');
+    var btn=document.getElementsByClassName('btn');
+    var next=document.getElementById('next');
+    var quizQuestions=[
+      {
+        question:"What are minions in the Kubernetes cluster?",
+        choice1:"components of the master node",
+        choice2:"work-horse / worker node of the cluster",
+        choice3:"monitoring engine used widely in kubernetes",
+        choice4:"They are docker container service",
+        ans:"work-horse / worker node of the cluster",
+      },
+         {
+        question:"Kubernetes cluster data is stored in which of the following?",
+        choice1:"Kube-apiserve",
+        choice2:"Kubelet",
+        choice3:"Etcd",
+        choice4:"None of the above",
+        ans:"Etcd",
+      },
+         {
+        question:"Which of them is a Kubernetes Controller?",
+        choice1:"ReplicaSet",
+        choice2:"Deployment",
+        choice3:"Rolling Updates",
+        choice4:"Both ReplicaSet and Deployment",
+        ans:"Both ReplicaSet and Deployment",
+      },
+         {
+        question:"Which of the following are core Kubernetes object?",
+        choice1:"Pods",
+        choice2:"Services",
+        choice3:"All of the above",
+        choice4:"Volumes",
+        ans:"All of the above",
+      },
+         {
+        question:"The Kubernetes Network proxy runs on which node?",
+        choice1:"Master Node",
+        choice2:"Worker Node",
+        choice3:"All the nodes",
+        choice4:"None of the above",
+        ans:"All the nodes",
+      },
+      {
+        question:"What are the responsibilities of a node controller.",
+        choice1:"to assign a CIDR block to the nodes",
+        choice2:"To maintain the list of nodes",
+        choice3:"To monitor the health of the nodes",
+        choice4:"all of the above",
+        ans:"all of the above",
+      },
+       {
+        question:"What are the responsibilities of Replication Controller?",
+        choice1:"Update or delete multiple pods with a single command",
+        choice2:"Helps to achieve the desired state",
+        choice3:"Creates a new pod, if the existing pod crashes",
+        choice4:"All of the above",
+        ans:"All of the above",
+      },
+       {
+        question:"How to define a service without a selector?",
+        choice1:"Specify the external name",
+        choice2:"Specify an endpoint with IP Address and port",
+        choice3:"Just by specifying the IP address",
+        choice4:"Specifying the label and api-version",
+        ans:"Specify the external name",
+      },
+       {
+        question:"What did the 1.8 version of Kubernetes introduce?",
+        choice1:"Taints and Tolerations",
+        choice2:"Cluster level Logging",
+        choice3:"Federated Clusters",
+        choice4:"Secrets",
+        ans:"Taints and Tolerations",
+      },
+       {
+        question:"The handler invoked by Kubelet to check if a container’s IP address is open or not is?",
+        choice1:" Virtual nodes",
+        choice2:"VM Scale sets",
+        choice3:"Container",
+        choice4:"None of the above",
+        ans:"VM Scale sets",
+      },
+       {
+        question:"Which one of the following helps to set up cluster autoscaler for adding capacity as per demand?",
+        choice1:"HTTPGetAction",
+        choice2:"ExecAction",
+        choice3:"TCPSocketAction",
+        choice4:"None of the above",
+        ans:"TCPSocketAction",
+      },
+      {
+        question:"___________ runs on each node and ensures containers are running in a pod.?",
+        choice1:"Kubelet",
+        choice2:"Etcd",
+        choice3:"Scheduler",
+        choice4:"Pod",
+        ans:"Kubelet",
+      },
+      {
+        question:"_______ manages the assigning nodes to pods depending on resource availability.?",
+        choice1:"Etcd",
+        choice2:"Kubectl",
+        choice3:"Scheduler",
+        choice4:"Flanneld",
+        ans:"Scheduler",
+      },
+      {
+        question:"As soon a service starts, .......... daemon running on each node add a set of environment variables on the pod for each active service.",
+        choice1:"Kubectl",
+        choice2:"Kubelet",
+        choice3:"Kubeadm",
+        choice4:"Service discovery",
+        ans:"Kubelet",
+      },
+      {
+        question:"Replication Controllers and Deployment Controllers are part of?",
+        choice1:"API Controller Manager",
+        choice2:"Etcd manager",
+        choice3:"Master Controller Manager",
+        choice4:"Kubeadm",
+        ans:"Master Controller Manager",
+      },
+      {
+        question:"___________________ is a special namespace that is used for special purposes like bootstrapping a cluster.?",
+        choice1:"Kube-public",
+        choice2:"Kube-private",
+        choice3:"Kube-system",
+        choice4:"Default",
+        ans:"Kube-public",
+      },
+      {
+        question:"Kubernetes uses _______________________ to connect to ouath 2 providers to offload the authentication to external services.?",
+        choice1:"Webhook Token Authentication",
+        choice2:"Keystone Password",
+        choice3:"OpenID Connect Tokens",
+        choice4:"None of the above",
+        ans:"OpenID Connect Tokens",
+      },
+      {
+        question:"To program additional authentication logic besides available authenticator modules, _______________ can be used.",
+        choice1:"WebHook Authentication",
+        choice2:"Authentication Proxy",
+        choice3:"Keystone Password",
+        choice4:"OpenID Connect Tokens",
+        ans:"Authentication Proxy",
+      },
+      {
+        question:"Kubernetes is written in",
+        choice1:"C++",
+        choice2:"Go",
+        choice3:"Python",
+        choice4:"Java spring framework",
+        ans:"Go",
+      },
+      {
+        question:"An abstraction in kubernetes which defines a logical set of pods and a policy to access them.",
+        choice1:"Kubectl",
+        choice2:"Kubelet",
+        choice3:"Node",
+        choice4:"Container",
+        ans:"Kubelet",
+      }
+    ];
+    function nextQuestion(no){
+    Inter(300);
+    cQuestion.textContent=" "+(no+1);
+    totalQuestions.textContent=" "+quizQuestions.length;
+    console.log("number "+no);
+    question.textContent=quizQuestions[no].question;
+    opt1.textContent=quizQuestions[no].choice1;
+    opt2.textContent=quizQuestions[no].choice2;
+    opt3.textContent=quizQuestions[no].choice3;
+    opt4.textContent=quizQuestions[no].choice4;
+  }
+    var z=setInterval(function(){
+        if(x==1){
+          clearInterval(z);
+          splashSecreen.style.display="none";
+          quizScreen.style.display="block";
+          nextQuestion(currentQuestion);
+        }
+        x++;
+    },2000);
+    for(var i=0;i<btn.length;i++){
+      btn[i].onclick=function(){
+        if(this.textContent==quizQuestions[currentQuestion].ans){
+            totalScore++;
+            if(currentQuestion<20){
+            clearInterval(bar);
+            currentQuestion++;
+            nextQuestion(currentQuestion);
+            console.log(totalScore);
+            }else{
+              endSecreen();
+            }
+        }
+        else{
+          if(currentQuestion<20){
+            currentQuestion++;
+            clearInterval(bar);
+            nextQuestion(currentQuestion);
+            console.log(totalScore);
+            }else{
+              endSecreen();
+            }
+        }
+      }
+    }
+    var bar;
+    function endSecreen(){
+      quizScreen.style.display="none";
+      resultSecreen.style.display="block";
+      score.textContent=totalScore;
+    }
+    function Inter(set){
+    var statusTime=set;
+    timeLeft.style.width=statusTime+"px";
+    bar=setInterval(function(){
+     if(statusTime==0){
+         clearInterval(bar); 
+          if(currentQuestion<20){
+            currentQuestion++;
+            nextQuestion(currentQuestion);
+          }
+          else{
+            endSecreen();
+          } 
+           
+        }
+        timeLeft.style.width=statusTime+"px";
+        statusTime=statusTime-30;
+    },1300); 
+   }
+  next.onclick=function(){
+    if(currentQuestion<20){
+    currentQuestion++;
+    nextQuestion(currentQuestion);
+    }
+    else{
+      endSecreen();
+    }
+   
+  }
+    </script>
+  </body>
+</html>
